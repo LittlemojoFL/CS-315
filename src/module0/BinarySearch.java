@@ -2,7 +2,7 @@
 //Date: 9/19/2022
 
 package module0;
-//test
+
 public class BinarySearch {
     public static int indexOf(int[] a, int key) {
         int lo = 0;
