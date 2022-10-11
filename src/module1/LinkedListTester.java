@@ -9,11 +9,16 @@ public class LinkedListTester {
 
     public LinkedListTester() {
 //        list.addToHead(new Node());
-        list.addUnique("x");
-        list.addUnique("y");
-        list.addUnique("z");
+        list.addToTail("x");
+        list.addToTail("y");
+        list.addToTail("z");
+        list.addToHead("h");
+        list.addToHead("g");
+        list.addAt((3), "i");
+        list.addAt(9, "9");
 //        list.addUnique("x");
         list.printFwd();
+        list.printRev();
     }
 }
 

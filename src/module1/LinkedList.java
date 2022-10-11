@@ -3,81 +3,108 @@ package module1;
 public class LinkedList implements List{
     Node head;
 
-    public Object getAt(int loc) {
+    public Node getAt(int loc) {
         int count = 0;
-
+        Node n = head;
+        while(count < loc && n.next != null) {
+            n = n.next;
+            count++;
+        }
+        if(count == loc)
+            return n;
+        else if(n.next == null)
+            System.out.println("Invalid index: " + loc);
         return null;
     }
 
-    public Object deleteAt(int loc) {
+    public Node deleteAt(int loc) {
         return null;
     }
 
     public void addToHead(String item) {
-        Node n = new Node();
-        n.item = "x";
-        n.next = head;
+        System.out.println("Adding \"" + item + "\" to head.");
+        Node n = new Node(item);
+        if(head == null)
+            head = n;
+        else {
+            Node temp = head;
+            n.next = temp;
+            head = n;
+        }
     }
 
     public void addToTail(String item) {
-
-    }
-
-    public void addUnique(String val) {
-        Node cur = head;
-        while (cur != null) {
-            if (cur.item == val)
-                return;
-            cur = cur.next;
+        System.out.println("Adding \"" + item + "\" to tail.");
+        Node n = new Node(item);
+        if(head == null)
+            head = n;
+        else {
+            Node tail = head;
+            while(tail.next != null)
+                tail = tail.next;
+            tail.next = n;
         }
-        Node newNode = new Node();
-        newNode.item = val;
-        newNode.next = null;
-        if (head == null)
-            head = newNode;
-
     }
 
-    public void addAt(int loc, Object o) {
+    public void addAt(int loc, String o) {
+        System.out.println("Adding \"" + o + "\" at index " + loc + ".");
         int count = 0;
         Node n = head;
-        while(count < loc) {
+        while(count < loc-1 && n.next != null) {
             n = n.next;
+            count++;
         }
-
+        if(count == loc-1) {
+            Node temp = n.next;
+            n.next = new Node(o);
+            n.next.next = temp;
+        }
+        if(count != loc-1 && n.next == null) {
+            System.out.println("Invalid index: " + loc);
+        }
     }
 
     public void printFwd() {
-//        if(head == null) {
-//            System.out.println("{} = No values in list.");
-//            return;
-//        }
         Node n = head;
         System.out.print("{");
         while(n != null) {
-            System.out.print("" + n.item + (n.next == null ? "}" : ", "));
+            System.out.print("" + n.item + (n.next == null ? "}\n" : ", "));
             n = n.next;
         }
-//        System.out.println(head.item + (head.next != null ? ", " + head.next.item: "}"));
-
-
-
     }
 
+    /*
+    Get the length of the full list
+    Get the node at the last index
+    put node into new list
+    print new list forwards
+     */
     public void printRev() {
-//        if(tail == null) {
-//            System.out.println("{} = No values in list.");
-//            return;
-//        }
-//        Node n = tail;
-//        System.out.print("{");
-//        while(n != null) {
-//            System.out.println("" + n.item + (n.prev == null ? "}":","));
-//            n = n.prev;
-//        }
-    }
-
-    public void printTest() {
+        //Count length of list
+        Node n = head;
+        int count = 0;
+        while(n.next != null) {
+            n = n.next;
+            count++;
+        }
+        Node newHead = getAt(count);
+        for( ; count >= 0;count--) {
+            Node next = getAt(count);
+            System.out.println("node at: " + count + " = " + next.item);
+            newHead.next = next;
+//            if(count-1 == -1)
+//                newHead.next = null;
+        }
+        System.out.println("{");
+        while(newHead.next != null) {
+            System.out.print("" + newHead.item + (newHead.next == null ? "}\n" : ", "));
+            newHead = newHead.next;
+            count++;
+//            if(newHead.item.equals("g"))
+//                break;
+//            if(count >= 10)
+//                break;
+        }
 
     }
 
@@ -89,7 +116,11 @@ public class LinkedList implements List{
 class Node {
     String item;
     Node next;
-    Node prev;
+
+    public Node (String item) {
+        this.item = item;
+        next = null;
+    }
 }
 
 

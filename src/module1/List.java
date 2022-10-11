@@ -1,20 +1,20 @@
 package module1;
 
 public interface List<Item> {
-    public Item getAt(int loc);
+    Node getAt(int loc);
 
-    public Item deleteAt(int loc);
+    Node deleteAt(int loc);
 
-    public void addToHead(String item);
+    void addToHead(String item);
 
-    public void addToTail(String item);
+    void addToTail(String item);
 
-    public void addAt(int loc, Item item);
+    void addAt(int loc, String item);
 
-    public void printFwd();
+    void printFwd();
 
-    public void printRev();
+    void printRev();
 
-    public boolean isEmpty();
+    boolean isEmpty();
 
 }
