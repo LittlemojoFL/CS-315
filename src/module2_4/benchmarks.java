@@ -1,6 +1,112 @@
+/*
+ * Author: Logan McClellan
+ * Date: 11/04/2022
+ * Description: Implementing Selection and QuickSort algorithms and evaluating their runtimes with
+ *              variety of array types.
+ *
+ * References: https://algs4.cs.princeton.edu/14analysis/
+ *             https://algs4.cs.princeton.edu/14analysis/Stopwatch.java.html
+ *             https://www.geeksforgeeks.org/java-program-for-quicksort/
+ *             https://www.javatpoint.com/selection-sort-in-java
+ *
+ */
+
+
 package module2_4;
 
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
+
 public class benchmarks {
+    private static final int LIST_SIZE = 10000;
+    private static int[] positiveOnly;
+    private static int[] positiveAndNegative;
+    private static int[] sorted;
+    private static int[] reversedSorted;
+
+    private static DecimalFormat df = new DecimalFormat("0.0000");
+    private static Stopwatch stopwatch;
+
+
+    /*
+    Setup the arrays
+    Run Sorting methods, and using the Stopwatch class, log the runtime of each method
+     */
+    public static void main(String[] args) {
+        //Setup arrays for selection sort
+        setupArrays(LIST_SIZE);
+
+        stopwatch = new Stopwatch();
+        SelectionSort.selectionSort(positiveOnly);
+        System.out.println("positiveOnly sorted with selectionSort in " + df.format(stopwatch.elapsedTime()) + " seconds");
+
+        stopwatch = new Stopwatch();
+        SelectionSort.selectionSort(positiveAndNegative);
+        System.out.println("positiveAndNegative sorted with selectionSort in " + df.format(stopwatch.elapsedTime()) + " seconds");
+
+        stopwatch = new Stopwatch();
+        SelectionSort.selectionSort(sorted);
+        System.out.println("sorted sorted with selectionSort in " + df.format(stopwatch.elapsedTime()) + " seconds");
+
+        stopwatch = new Stopwatch();
+        SelectionSort.selectionSort(reversedSorted);
+        System.out.println("reversedSorted sorted with selectionSort in " + df.format(stopwatch.elapsedTime()) + " seconds");
+
+//        //Scramble the arrays again for the quicksort testing
+//        setupArrays(LIST_SIZE);
+//
+//        stopwatch = new Stopwatch();
+//        QuickSort.quickSort(positiveOnly, 0, LIST_SIZE - 1);
+//        System.out.println("positiveOnly sorted with quickSort in " + df.format(stopwatch.elapsedTime()) + " seconds");
+//
+//        stopwatch = new Stopwatch();
+//        QuickSort.quickSort(positiveAndNegative, 0, LIST_SIZE - 1);
+//        System.out.println("positiveAndNegative sorted with quickSort in " + df.format(stopwatch.elapsedTime()) + " seconds");
+//
+//        stopwatch = new Stopwatch();
+//        QuickSort.quickSort(sorted, 0, LIST_SIZE - 1);
+//        System.out.println("sorted sorted with quickSort in " + df.format(stopwatch.elapsedTime()) + " seconds");
+//
+//        stopwatch = new Stopwatch();
+//        QuickSort.quickSort(reversedSorted, 0, LIST_SIZE - 1);
+//        System.out.println("reversedSorted sorted with quickSort in " + df.format(stopwatch.elapsedTime()) + " seconds");
+
+    }
+
+    /*
+    Instantiate the four arrays we'll test with, with size LIST_SIZE
+     */
+    public static void setupArrays(int size) {
+        //positiveOnly Setup
+        positiveOnly = new int[size];
+        for(int i = 0; i < size - 1; i++) {
+            positiveOnly[i] = randomNumber(0, 2000);
+        }
+
+        //positiveAndNegative setup
+        positiveAndNegative = new int[size];
+        for(int i = 0; i < size - 1; i++) {
+            positiveAndNegative[i] = randomNumber(-2000,2000);
+        }
+
+        //sorted setup
+        sorted = new int[size];
+        for(int i = 0; i < size - 1; i++) {
+            sorted[i] = randomNumber(-2000, 2000);
+        }
+        Arrays.sort(sorted);
+
+        //reversedSorted setup
+        reversedSorted = sorted;
+        Collections.reverse(Arrays.asList(reversedSorted));
+    }
+
+    public static int randomNumber(int min, int max) {
+        Random random  = new Random();
+        return random.ints(min, max).findFirst().getAsInt();
+    }
 
 }
 
@@ -21,8 +127,7 @@ class SelectionSort {
 }
 
 class QuickSort {
-
-    // A utility function to swap two elements
+    // A function to swap two elements
     static void swap(int[] arr, int i, int j)
     {
         int temp = arr[i];
@@ -80,25 +185,5 @@ class QuickSort {
             quickSort(arr, low, pi - 1);
             quickSort(arr, pi + 1, high);
         }
-    }
-
-    // Function to print an array
-    static void printArray(int[] arr, int size)
-    {
-        for (int i = 0; i < size; i++)
-            System.out.print(arr[i] + " ");
-
-        System.out.println();
-    }
-
-    // Driver Code
-    public static void main(String[] args)
-    {
-        int[] arr = { 10, 7, 8, 9, 1, 5 };
-        int n = arr.length;
-
-        quickSort(arr, 0, n - 1);
-        System.out.println("Sorted array: ");
-        printArray(arr, n);
     }
 }
