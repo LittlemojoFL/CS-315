@@ -1,10 +1,9 @@
 package module5_6;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class InputReader {
 
@@ -14,7 +13,6 @@ public class InputReader {
     public static String [] parseInputFile(String file)
     {
         ArrayList<String> words = new ArrayList<String>();
-
         String instr;
         int i=0;
         try {
@@ -36,25 +34,18 @@ public class InputReader {
             System.err.println("Error in Parsing file.");
             io.printStackTrace();
         }
+
+
         return words.toArray(new String[words.size()]);
     }
 
     public static void main(String [] args) {
-
-        Path current = Paths.get("input.txt");
-        String inputFile = current.toAbsolutePath().toString();
-        System.out.println(inputFile);
-        for(int i = 0; i < inputFile.length(); i++)
-            if(inputFile.charAt(i) == '\\')
-                inputFile = inputFile.substring(0, i) + "\\" + inputFile.substring(i++);
-
-        System.out.println(inputFile);
+        String inputFile = "input.txt";
         String [] words  = InputReader.parseInputFile(inputFile);
 
         for (int i=0; i < words.length; i++) {
             System.out.println(words[i]);
         }
-
     }
 
 }
