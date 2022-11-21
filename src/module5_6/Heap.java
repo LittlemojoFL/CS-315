@@ -108,8 +108,12 @@ public class Heap {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        Heap.sort(args);
-        show(args);
+        String inputFile = "input.txt";
+        String [] words  = InputReader.parseInputFile(inputFile);
+
+
+        Heap.sort(words);
+        show(words);
     }
 }
 
