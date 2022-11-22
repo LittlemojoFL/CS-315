@@ -1,15 +1,12 @@
 package module5_6;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
 
+/**
+ * Author: Richard Stansbury
+ * Parses the input file so that you can add all the items found in the list in alphabetical order by title.
+ */
 public class InputReader {
-
-    /**
-     * Parses the input file so that you can add all the items found in the list in alphabetical order by title.
-     */
     public static String [] parseInputFile(String file)
     {
         ArrayList<String> words = new ArrayList<String>();
@@ -25,17 +22,14 @@ public class InputReader {
                 String [] linedata = instr.split(" ");
 
                 for (int j=0; j < linedata.length; j++) {
+
                     words.add(linedata[j].toLowerCase());
                 }
-
-
             }
         } catch (IOException io) {
             System.err.println("Error in Parsing file.");
             io.printStackTrace();
         }
-
-
         return words.toArray(new String[words.size()]);
     }
 
@@ -47,5 +41,4 @@ public class InputReader {
             System.out.println(words[i]);
         }
     }
-
 }

@@ -1,46 +1,56 @@
 package module5_6;
+
 /**
+ * Author: Logan McClellan
+ * Date: 11/21/2022
  * Implements a word frequency counter using a binary search tree and a heap.
  */
-
 public class WordCounter {
+    public static BST<String, Integer> bst = new BST<String, Integer>();
     /**
-     * Stores the words in a BST
+     * Counts the occurences of each word in the array
      * @param words
      */
     public static void countWords(String [] words) {
-        //First, we Heapify the words in the string to sort them into alphabetical order.
-        Heap.sort(words);
-        for(String s: words) System.out.println(s);
-
-        //Second, we store the words in the BST with the count of how many of the word exist
-        BST<String, Integer> st = new BST<String, Integer>();
         int count = 0;
-        String curWord = "";
-        for(int i = 0; i < words.length; i++) {
-            if(curWord.equals(""))
-                curWord = words[i];
-            if(words[i].equals(curWord)) {
-                count++;
-                continue;
-            }
-            //If the word at this index is a different word from the previous index
-            //we add the curWord to the BST, and then start with a new word
-            if(!(words[i].equals(curWord))) {
-
-                st.put(curWord, count);
-                curWord = words[i];
-                count = 1;
+        for(String word: words) {
+            if(word.length() > 0) {
+                if (!bst.contains(word)) {
+                    count = 1;
+                    bst.put(word, count);
+                } else {
+                    count = bst.get(word);
+                    bst.put(word, ++count);
+                }
             }
         }
-        System.out.println("Printing in Ascending Order by word");
-        for (String s : st.levelOrder())
-            System.out.println(s + " " + st.get(s));
-
-        System.out.println();
+        ascendingOrder();
+        descendingOrder();
     }
 
+    /**
+     * Prints the Binary Search Tree in Ascending Order by word alphabetically
+     */
+    public static void ascendingOrder() {
+        System.out.println("Printing in Ascending Order by word");
+        bst.printInOrder();
+    }
 
+    /**
+     * Prints the Binary Search Tree in Descending Order by count using a Max Heap
+     */
+    public static void descendingOrder() {
+        System.out.println("Printing in Descending Order by count");
+        MaxHeap<Integer, String> maxHeap = new MaxHeap<>(bst.size());
+        for(String s: bst.keys()) {
+            maxHeap.enqueue(bst.get(s), s);
+        }
+
+        while(!maxHeap.isEmpty()) {
+            String s = maxHeap.dequeue();
+            System.out.println(s + " => " + bst.get(s));
+        }
+    }
 
     public static void main(String [] args) {
         String input = "input.txt";

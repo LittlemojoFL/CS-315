@@ -80,28 +80,6 @@ public class BST<Key extends Comparable<Key>, Value> {
         }
     }
 
-//    public int compareTo(Key one, Key two) {
-//        //compare based on each char of the string
-//        String strOne = one.toString(), strTwo = two.toString();
-//        for(int i = 0; i < strOne.length(); i++) {
-//            if(i > strTwo.length()) {
-//                //Returns -1 because string two is shorter than string one
-//                return -1;
-//            }
-//            if(strOne.charAt(i) < strTwo.charAt(i)) {
-//                return -1;
-//            }
-//            else if(strOne.charAt(i) > strTwo.charAt(i)) {
-//                return 1;
-//            }
-//            else {
-//                continue;
-//            }
-//        }
-//        //If we get to here, it means the two strings are identical
-//        return 0;
-//    }
-
     /**
      * Initializes an empty symbol table.
      */
@@ -549,6 +527,23 @@ public class BST<Key extends Comparable<Key>, Value> {
         return true;
     }
 
+    /**
+     * Calls a recursive method for inorder traversal of tree that prints each element
+     */
+    public void printInOrder() {
+        inOrderTraverse(root);
+    }
+
+    /**
+     * Recursive method for inorder traversal of the tree.
+     * @param cur - current node
+     */
+    private void inOrderTraverse(Node cur) {
+        if (cur==null) return;
+        inOrderTraverse(cur.left);
+        System.out.println(cur.key + " => " + cur.val);
+        inOrderTraverse(cur.right);
+    }
 
     /**
      * Unit tests the {@code BST} data type.
