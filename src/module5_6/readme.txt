@@ -1,0 +1,2 @@
+In order to run my program, you MUST place the input.txt in the same directory as the /src/ folder.
+All java files must be placed in a /src/module5_6/ directory OR if you remove the package module5_6; line from each file
